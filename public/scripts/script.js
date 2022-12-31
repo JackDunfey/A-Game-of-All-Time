@@ -1,26 +1,25 @@
-let level = 1;
+let level;
+try{
+    level = parseInt(location.query.level) || 1;
+} catch {
+    level = 1;
+}
 let player, sky, flag, level_text_start = 0;
 let platforms = [];
 function setup(){
     createCanvas(width,height);
     player = new Player();
     sky = new Sky();
-    platforms = level1_data.platforms.map(platform=>{
-        if(platform.type == "G")
-            return new Ground(platform.start, platform.end)
-        else if(platform.type == "P")
-            return new Platform(platform.x, platform.y, platform.w, platform.h);
-    });
-    flag = new Flag(...level1_data.flag);
-    window.gameOver = function(){
-        noLoop();
-        push();
-        textSize(50);
-        textAlign(CENTER);
-        rectMode(CENTER);
-        text("Game Over", width/2, height/2);
-        pop();
-    }
+    initLevel(level);
+    // window.gameOver = function(){
+    //     noLoop();
+    //     push();
+    //     textSize(50);
+    //     textAlign(CENTER);
+    //     rectMode(CENTER);
+    //     text("Game Over", width/2, height/2);
+    //     pop();
+    // }
     window.nextLevel = function(){
         ++level;
         level_text_start = frameCount;
@@ -43,6 +42,8 @@ function draw(){
     player.update();
     player.draw();
 
+    updateScoreDisplay();
+
     if(level > MAX_LEVEL){
         push();
         textSize(50);
@@ -59,14 +60,7 @@ function draw(){
         text(`Level ${level}`, width/2, height/2);
         pop();
     } else if (frameCount - level_text_start == 150 && frameCount != 150) {
-        let level_data = eval?.(`level${level}_data`);
-        platforms = level_data.platforms.map(platform=>{
-            if(platform.type == "G")
-                return new Ground(platform.start, platform.end)
-            else if(platform.type == "P")
-                return new Platform(platform.x, platform.y, platform.w, platform.h);
-        });
-        flag = new Flag(...level_data.flag);
+        initLevel(level);
     }
 }
 
@@ -74,4 +68,26 @@ function keyPressed(){
     if(keyCode == 32){
         player.jump();
     }
+}
+
+function initLevel(levelNumber=level){
+    let level_data = eval?.(`level${levelNumber}_data`);
+    platforms = level_data.platforms.map(platform=>{
+        if(platform.type == "G")
+            return new Ground(platform.start, platform.end)
+        else if(platform.type == "P")
+            return new Platform(platform.x, platform.y, platform.w, platform.h);
+    });
+    flag = new Flag(...level_data.flag);
+}
+
+function updateScoreDisplay(){
+    push();
+    textSize(16);
+    stroke(0);
+    rectMode(CORNER);
+    textAlign(LEFT);
+    text("Jumps: " + player.jumps, 0, 0, 100, 100);
+    text("Deaths: " + player.deaths, 0, 20, 100, 100);
+    pop();
 }

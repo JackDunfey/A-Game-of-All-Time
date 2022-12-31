@@ -6,7 +6,7 @@ class Player{
         this.pos = createVector(100,100);
         this.vel = createVector(0,0);
         this.acc = createVector(0,0.5);
-        this.hp = 100;
+        this.deaths = this.jumps = 0;
     }
     handleLanded(objects){
         if(this.vel.y < 0)
@@ -25,7 +25,11 @@ class Player{
     }
     checkDeath(){
         if(player.pos.y - Player.RADIUS >= height + 30){
-            gameOver();
+            // Player died
+            ++this.deaths;
+            // Move outside of player
+            initLevel(level); 
+            player.pos.set(100, 300);
         }
     }
     checkVictory(){
@@ -47,7 +51,8 @@ class Player{
     jump(){
         if(this.jumpCount < 2){
             this.vel.set(0,this.jumpCount ? -10 : -12);
-            this.jumpCount++;
+            ++this.jumpCount;
+            ++this.jumps;
         }
     }
     draw(){
