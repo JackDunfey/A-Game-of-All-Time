@@ -3,62 +3,27 @@ const level2_data = {
         {
             "type": "G",
             "start": 0,
-            "end": width + 175,
+            "end": width,
         },
         {
             "type": "P",
-            "x": width,
-            "y": height - Ground.HEIGHT - 200,
+            "x": width + 100,
+            "y": height - 200,
             "w": 200,
             "h": 20,
         },
         {
-            "type": "P",
-            "x": width + 300,
-            "y": height - Ground.HEIGHT - 100,
-            "w": 200,
-            "h": 20,
-        },
-        {
-            "type": "P",
-            "x": width + 650,
-            "y": height - Ground.HEIGHT - 300,
-            "w": 200,
-            "h": 20,
-        },
-        {
-            "type": "P",
-            "x": width + 1100,
-            "y": height - Ground.HEIGHT - 350,
-            "w": 200,
-            "h": 20,
-        },
-        {
-            "type": "P",
-            "x": width + 1450,
-            "y": height - Ground.HEIGHT - 350,
-            "w": 50,
-            "h": 20,
-        },
-        {
-            "type": "P",
-            "x": width + 1650,
-            "y": height - Ground.HEIGHT - 350,
-            "w": 50,
-            "h": 20,
-        },
-        {
-            "type": "P",
-            "x": width + 2000,
-            "y": height - Ground.HEIGHT - 350,
+            "type": "FWP",
+            "x": width + 400,
+            "y": height - 325,
             "w": 200,
             "h": 20,
         },
         {
             "type": "G",
-            "start": width + 2300,
-            "end": width + 12000
-        }
+            "start": width + 900,
+            "end": width + 10000
+        },
     ],
-    flag: [width+2100, height-Ground.HEIGHT - 350],
-}
+    flag: [width+1100, height-Ground.HEIGHT],
+};

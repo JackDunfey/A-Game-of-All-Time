@@ -77,6 +77,10 @@ function initLevel(levelNumber=level){
             return new Ground(platform.start, platform.end)
         else if(platform.type == "P")
             return new Platform(platform.x, platform.y, platform.w, platform.h);
+        else if(platform.type == "FP")
+            return new FallingPlatform(platform.x, platform.y, platform.w, platform.h, platform?.activateAtPlayerX || 0);
+        else if(platform.type == "FWP")
+            return new FallingWeightedPlatform(platform.x, platform.y, platform.w, platform.h);
     });
     flag = new Flag(...level_data.flag);
 }

@@ -3,7 +3,7 @@ class Player{
     static RADIUS = Player.DIAMETER / 2;
     static GRAVITY = 0.5;
     constructor(){
-        this.pos = createVector(100,100);
+        this.pos = createVector(this.worldX = 100,100);
         this.vel = createVector(0,0);
         this.acc = createVector(0,0.5);
         this.deaths = this.jumps = 0;
@@ -20,6 +20,7 @@ class Player{
                 this.vel.set(0,0);
                 this.pos.y = objects[i].pos.y - Player.RADIUS;
                 this.jumpCount = 0;
+                objects[i]?.activate?.()
             }
         }
     }
@@ -42,6 +43,7 @@ class Player{
         // gravity
         this.vel.add(this.acc);
         this.pos.add(this.vel);
+        this.worldX += VELOCITY;
         this.checkDeath();
         this.checkVictory();
         this.handleLanded(platforms);

@@ -3,7 +3,7 @@ const level1_data = {
         {
             "type": "G",
             "start": 0,
-            "end": width + 200,
+            "end": width,
         },
         {
             "type": "P",
