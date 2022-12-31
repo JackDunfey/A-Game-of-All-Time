@@ -1,13 +1,17 @@
 let level = 1;
 let player, sky, flag, level_text_start = 0;
-const platforms = [];
+let platforms = [];
 function setup(){
-    createCanvas(800,600);
-    noStroke();
+    createCanvas(width,height);
     player = new Player();
     sky = new Sky();
-    platforms.push(new Ground(0, width+200), new Platform(width, height - Ground.HEIGHT - 100, 200, 20), new Platform(width+150, height - Ground.HEIGHT - 250, 200, 20), new Platform(width + 150 + 500, height - Ground.HEIGHT - 200, 200, 20), new Ground(width + 650 + 200 + 75, 10000));
-    flag = new Flag(width+1225, height-Ground.HEIGHT);
+    platforms = level1_data.platforms.map(platform=>{
+        if(platform.type == "G")
+            return new Ground(platform.start, platform.end)
+        else if(platform.type == "P")
+            return new Platform(platform.x, platform.y, platform.w, platform.h);
+    });
+    flag = new Flag(...level1_data.flag);
     window.gameOver = function(){
         noLoop();
         push();
@@ -21,6 +25,7 @@ function setup(){
         ++level;
         level_text_start = frameCount;
     }
+    noStroke();
 }
 
 function draw(){
@@ -38,13 +43,30 @@ function draw(){
     player.update();
     player.draw();
 
-    if(frameCount - level_text_start < 150){
+    if(level > MAX_LEVEL){
+        push();
+        textSize(50);
+        textAlign(CENTER);
+        rectMode(CENTER);
+        text(`You Won!`, width/2, height/2);
+        pop();
+        window.setTimeout(noLoop, 300);
+    } else if(frameCount - level_text_start < 150){
         push();
         textSize(50);
         textAlign(CENTER);
         rectMode(CENTER);
         text(`Level ${level}`, width/2, height/2);
         pop();
+    } else if (frameCount - level_text_start == 150 && frameCount != 150) {
+        let level_data = eval?.(`level${level}_data`);
+        platforms = level_data.platforms.map(platform=>{
+            if(platform.type == "G")
+                return new Ground(platform.start, platform.end)
+            else if(platform.type == "P")
+                return new Platform(platform.x, platform.y, platform.w, platform.h);
+        });
+        flag = new Flag(...level_data.flag);
     }
 }
 

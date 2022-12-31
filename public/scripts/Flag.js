@@ -1,6 +1,7 @@
 class Flag extends Moving{
     constructor(x, y){
         super(x, y);
+        this.completed = false;
         // Victory box = 
         // (x,y-150) - (x+60,y-150)
         // |                      |

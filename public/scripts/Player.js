@@ -29,8 +29,10 @@ class Player{
         }
     }
     checkVictory(){
-        if(player.pos.x >= flag.pos.x && level == 1) // FIXME: remove (for demo)
+        if(!flag.completed && player.pos.x >= flag.pos.x){
+            flag.completed = true;
             nextLevel();
+        }
     }
     update(){
         // gravity
