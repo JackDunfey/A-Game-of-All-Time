@@ -1,3 +1,4 @@
+let gaming = false;
 let level;
 try{
     level = parseInt(location.query.level) || 1;
@@ -6,7 +7,14 @@ try{
 }
 let player, sky, flag, level_text_start = 0;
 let platforms = [];
+
 function setup(){
+    createCanvas(width,height);
+    setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
+    showMenu();
+}
+
+function start(){
     createCanvas(width,height);
     player = new Player();
     sky = new Sky();
@@ -25,10 +33,14 @@ function setup(){
         level_text_start = frameCount;
     }
     noStroke();
+    gaming = true;
 }
 
 function draw(){
-    setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS)
+    if(!gaming)
+        return;
+    
+    setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
     // background("#87CEEB");
     sky.update();
     sky.draw();
@@ -68,6 +80,13 @@ function keyPressed(){
     if(keyCode == 32){
         player.jump();
     }
+}
+
+function mouseClicked(e){
+    if(gaming)
+        return;
+    checkClicked(startButton);  
+    checkClicked(tutorialButton);
 }
 
 function initLevel(levelNumber=level){
