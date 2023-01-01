@@ -13,7 +13,7 @@ const tutorialButton = {
     w: 300,
     h: 75,
     onClick: function(){
-        tutorial();
+        tutorialSetup();
     },
 };
 function showMenu(){
@@ -41,8 +41,9 @@ function showMenu(){
 function checkClicked(button){
     // NOTE rectMode is CENTER
     if(mouseX < button.x - button.w/2 || mouseX > button.x + button.w/2)
-        return;
+        return 0;
     if(mouseY < button.y - button.h/2 || mouseY > button.y + button.h/2)
-        return;
+        return 0;
     button.onClick();
+    return 1;
 }

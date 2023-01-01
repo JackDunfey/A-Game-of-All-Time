@@ -25,29 +25,30 @@ class Player{
         }
     }
     checkDeath(){
-        if(player.pos.y - Player.RADIUS >= height + 30){
+        if(this.pos.y - Player.RADIUS >= height + 30){
             // Player died
             ++this.deaths;
             // Move outside of player
             initLevel(level); 
-            player.pos.set(100, 300);
+            this.pos.set(100, 300);
         }
     }
-    checkVictory(){
-        if(!flag.completed && player.pos.x >= flag.pos.x){
+    checkVictory(flag, callback){
+        if(!flag.completed && this.pos.x >= flag.pos.x){
             flag.completed = true;
-            nextLevel();
+            callback();
         }
     }
-    update(){
+    update(level_data, victoryCallback=null){
+        if(victoryCallback == null && !nextLevel)
+            throw new Error("?");
         // gravity
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.worldX += VELOCITY;
         this.checkDeath();
-        this.checkVictory();
-        this.handleLanded(platforms);
-        // console.log(this.vel);
+        this.checkVictory(level_data.flag, victoryCallback);
+        this.handleLanded(level_data.platforms);
         // Other?
     }
     jump(){
@@ -60,7 +61,7 @@ class Player{
     draw(){
         push();
         fill("red");
-        translate(this.pos.x,this.pos.y);
+        translate(this.pos.x, this.pos.y);
         circle(0, 0, Player.DIAMETER);
         pop();
     }

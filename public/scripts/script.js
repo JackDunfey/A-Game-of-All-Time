@@ -1,12 +1,11 @@
-let gaming = false;
-let level;
+let gaming = inTutorial = false, onMenu = true;
+let level, level_data;
 try{
     level = parseInt(location.query.level) || 1;
 } catch {
     level = 1;
 }
-let player, sky, flag, level_text_start = 0;
-let platforms = [];
+let player, sky, level_text_start = 0;
 
 function setup(){
     createCanvas(width,height);
@@ -37,6 +36,8 @@ function start(){
 }
 
 function draw(){
+    if(inTutorial)
+        return tutorial();
     if(!gaming)
         return;
     
@@ -45,13 +46,13 @@ function draw(){
     sky.update();
     sky.draw();
 
-    platforms.forEach(p=>p.update());
-    platforms.forEach(p=>p.draw());
+    level_data.platforms.forEach(p=>p.update());
+    level_data.platforms.forEach(p=>p.draw());
 
-    flag.update();
-    flag.draw();
+    level_data.flag.update();
+    level_data.flag.draw();
 
-    player.update();
+    player.update(level_data);
     player.draw();
 
     updateScoreDisplay();
@@ -77,21 +78,23 @@ function draw(){
 }
 
 function keyPressed(){
+    if(!gaming && !inTutorial)
+        return;
     if(keyCode == 32){
-        player.jump();
+        (gaming ? player : tut_player).jump();
     }
 }
 
 function mouseClicked(e){
-    if(gaming)
-        return;
-    checkClicked(startButton);  
-    checkClicked(tutorialButton);
+    if(onMenu){
+        if(checkClicked(startButton) + checkClicked(tutorialButton))
+            onMenu = false;
+    }
 }
 
 function initLevel(levelNumber=level){
-    let level_data = eval?.(`level${levelNumber}_data`);
-    platforms = level_data.platforms.map(platform=>{
+    level_data = Object.assign({},eval?.(`level${levelNumber}_data`));
+    platforms = level_data.platforms = level_data.platforms.map(platform=>{
         if(platform.type == "G")
             return new Ground(platform.start, platform.end)
         else if(platform.type == "P")
@@ -101,13 +104,15 @@ function initLevel(levelNumber=level){
         else if(platform.type == "FWP")
             return new FallingWeightedPlatform(platform.x, platform.y, platform.w, platform.h);
     });
-    flag = new Flag(...level_data.flag);
+    flag = level_data.flag = new Flag(...level_data.flag);
 }
 
 function updateScoreDisplay(){
     push();
     textSize(16);
     stroke(0);
+    strokeWeight(1);
+    fill(0);
     rectMode(CORNER);
     textAlign(LEFT);
     text("Jumps: " + player.jumps, 0, 0, 100, 100);
