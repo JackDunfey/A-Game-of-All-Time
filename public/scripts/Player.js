@@ -40,8 +40,12 @@ class Player{
         }
     }
     update(level_data, victoryCallback=null){
-        if(victoryCallback == null && !nextLevel)
-            throw new Error("?");
+        if(victoryCallback == null){
+            if(nextLevel)
+                victoryCallback = nextLevel
+            else 
+                throw new Error("?");
+        }
         // gravity
         this.vel.add(this.acc);
         this.pos.add(this.vel);
