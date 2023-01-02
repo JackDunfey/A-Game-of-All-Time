@@ -29,4 +29,7 @@ html(lang="en")
         script location.query = Object.fromEntries(location.search.slice(1).split("&").map(x=>x.split("=")))
     body
         div#container
+        unless user.isAnonymous 
+            flag(value="authenticated" hidden)
+            info(key="username" hidden)= user.username
         script(src="/static/scripts/script.js") 

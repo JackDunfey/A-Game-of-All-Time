@@ -11,6 +11,8 @@ body, html{
     display: flex;
     flex-direction: column;
 }
-#login{
+#login, #loggedin{
+    margin: 0px;
+    padding: 0px;
     text-align: center;
 }

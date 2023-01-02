@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+    head
+        title Login
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        script(src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" crossorigin="anonymous")
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous")
+        link(rel="stylesheet", href="/static/styles/global.css")
+        link(rel="stylesheet", href="/static/styles/login.css")
+    body
+        .container-fluid 
+            .row.main-content.bg-success.text-center
+                .col-md-4.text-center.company__info
+                    span.company__logo 
+                        h2 
+                            img.w-75(src="/static/images/rainbow-wheel.png")
+                    h4.company_title GameSite
+                .col-md-8.col-xs-12.col-sm-12.login_form
+                    .container-fluid 
+                        .row 
+                            h2 Log In
+                        .row 
+                            form.form-group(action="/login" method="POST")
+                                .row
+                                    input.form__input#identifier(name="identifier" placeholder="Username or Email")
+                                .row 
+                                    input.form__input#password(type="password" name="password" placeholder="Password")
+                                .row 
+                                    input.d-inline#remember_me(style="width: 50%;" type="checkbox" name="remember_me")
+                                    label.w-50(for="remember_me") Remember Me!
+                                .row 
+                                    input.btn(type="submit" value="Submit")
+                        .row 
+                            p Don't have an account? 
+                                a(href="/register") Register Here

@@ -10,11 +10,19 @@ let player, sky, level_text_start = 0;
 function setup(){
     let cnv = createCanvas(width,height);
     cnv.parent("container");
-    let a = document.createElement("a");
-    a.href = "/login";
-    a.id = "login";
-    a.textContent = "Login to save your score";
-    document.getElementById("container").append(a);
+    // Check for pug flag
+    if(document.querySelector("flag[value=authenticated]") && document.querySelector("info[key=username]")){
+        let p = document.createElement("p");
+        p.id = "loggedin";
+        p.textContent = `Welcome back, ${document.querySelector("info[key=username]").textContent}`;
+        document.getElementById("container").append(p);
+    } else {
+        let a = document.createElement("a");
+        a.href = "/login";
+        a.id = "login";
+        a.textContent = "Login to save your score";
+        document.getElementById("container").append(a);
+    }
     setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
     showMenu();
 }

@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+    head
+        title Login 
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        script(src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" crossorigin="anonymous")
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous")
+        link(rel="stylesheet", href="/static/styles/global.css")
+    body 
+        .container-fluid 
+            .row.flex
+                .col-md-2
+                .col-md-8.d-flex.justify-content-center(style="align-items: middle;")
+                    form.w-100.text-white(action="/register", method="post")
+                        .row.mt-2
+                            h1 Register
+                        .row.my-2
+                            label.col-sm-2(for="username") Username
+                            .col-sm-10 
+                                    input.form-control#username(name="username" type="username" placeholder="e.g. JohnDoe123")
+                        //- .row.my-2
+                        //-     label.col-sm-2(for="email") Email
+                        //-     .col-sm-10 
+                        //-         input.form-control#email(name="email" type="email" placeholder="e.g. john.doe@example.com")
+                        .row.my-2 
+                            label.col-sm-2.col-form-label(for="password") Password 
+                            .col-sm-10
+                                input.form-control#password(name="password" type="password" placeholder="**********")
+                        .row.my-2 
+                            .col-sm-2
+                            .col-sm-10
+                                input.w-100.btn.btn-outline-primary(type="submit", value="Register")  
+                        .row-my-2 
+                            .col
+                                p.text-center Already have an account 
+                                    a(href="/login") Login
+                .col-md-2
