@@ -54,8 +54,9 @@ function draw(){
     if(!gaming)
         return;
     
+    background("#87CEEB");
     setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
-    // background("#87CEEB");
+    
     sky.update();
     sky.draw();
 
