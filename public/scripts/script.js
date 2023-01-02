@@ -1,4 +1,4 @@
-let gaming = inTutorial = false, onMenu = true;
+let gaming = inTutorial = false, onMenu = true, paused = false;
 let level, level_data;
 try{
     level = parseInt(location.query.level) || 1;
@@ -8,13 +8,18 @@ try{
 let player, sky, level_text_start = 0;
 
 function setup(){
-    createCanvas(width,height);
+    let cnv = createCanvas(width,height);
+    cnv.parent("container");
+    let a = document.createElement("a");
+    a.href = "/login";
+    a.id = "login";
+    a.textContent = "Login to save your score";
+    document.getElementById("container").append(a);
     setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
     showMenu();
 }
 
 function start(){
-    createCanvas(width,height);
     player = new Player();
     sky = new Sky();
     initLevel(level);
@@ -63,25 +68,45 @@ function draw(){
         textAlign(CENTER);
         rectMode(CENTER);
         text(`You Won!`, width/2, height/2);
+        player.won = true;
         pop();
-        window.setTimeout(noLoop, 300);
-    } else if(frameCount - level_text_start < 150){
-        push();
-        textSize(50);
-        textAlign(CENTER);
-        rectMode(CENTER);
-        text(`Level ${level}`, width/2, height/2);
-        pop();
-    } else if (frameCount - level_text_start == 150 && frameCount != 150) {
-        initLevel(level);
+        if(frameCount - level_text_start == 60){
+            level_data = {
+                "platforms": [
+                    new Ground(0, Infinity),
+                ],
+                "flag": new Flag(Infinity, 0)
+            }
+        }
+    } else{
+        if(frameCount - level_text_start < 150){
+            push();
+            textSize(50);
+            textAlign(CENTER);
+            rectMode(CENTER);
+            text(`Level ${level}`, width/2, height/2);
+            pop();
+        } 
+        if (frameCount - level_text_start == 100 && frameCount != 100) {
+            initLevel(level);
+        }
     }
 }
 
 function keyPressed(){
-    if(!gaming && !inTutorial)
-        return;
-    if(keyCode == 32){
-        (gaming ? player : tut_player).jump();
+    if(keyCode == ESCAPE){
+        paused = !paused;
+        if(paused){
+            noLoop();
+        } else {
+            loop();
+        }
+    }
+    if(gaming || inTutorial){
+        // In game
+        if(keyCode == 32){
+            (gaming ? player : tut_player).jump();
+        }
     }
 }
 

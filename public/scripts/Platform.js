@@ -8,8 +8,11 @@ class Platform extends Moving{
     draw(){
         push();
         fill(this.color);
-        translate(this.pos.x, this.pos.y);
-        rect(0, 0, this.w, this.h);
+        if(this.w == Infinity){
+            rect(0, this.pos.y, width, this.h);
+        } else {
+            rect(this.pos.x, this.pos.y, this.w, this.h);
+        }
         pop();
     }
 }

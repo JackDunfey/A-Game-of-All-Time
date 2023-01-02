@@ -7,6 +7,7 @@ class Player{
         this.vel = createVector(0,0);
         this.acc = createVector(0,0.5);
         this.deaths = this.jumps = 0;
+        this.won = false;
     }
     handleLanded(objects){
         if(this.vel.y < 0)
@@ -59,7 +60,8 @@ class Player{
         if(this.jumpCount < 2){
             this.vel.set(0,this.jumpCount ? -10 : -12);
             ++this.jumpCount;
-            ++this.jumps;
+            if(!this.won)
+                ++this.jumps;
         }
     }
     draw(){

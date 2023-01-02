@@ -23,6 +23,10 @@ html(lang="en")
         script(src="/static/scripts/levels/level1.js") 
         script(src="/static/scripts/levels/level2.js" defer) 
         script(src="/static/scripts/levels/level3.js" defer) 
+        script(src="/static/scripts/levels/level4.js" defer) 
+        script(src="/static/scripts/levels/level5.js" defer) 
+        script(src="/static/scripts/levels/level6.js" defer) 
         script location.query = Object.fromEntries(location.search.slice(1).split("&").map(x=>x.split("=")))
     body
+        div#container
         script(src="/static/scripts/script.js") 

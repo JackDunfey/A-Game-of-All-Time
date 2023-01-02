@@ -1,4 +1,4 @@
-const level3_data = {
+const level6_data = {
     "platforms": [
         {
             "type": "G",
@@ -6,42 +6,42 @@ const level3_data = {
             "end": width + 175,
         },
         {
-            "type": "P",
+            "type": "FWP",
             "x": width,
             "y": height - Ground.HEIGHT - 200,
             "w": 200,
             "h": 20,
         },
         {
-            "type": "P",
+            "type": "FWP",
             "x": width + 300,
             "y": height - Ground.HEIGHT - 100,
             "w": 200,
             "h": 20,
         },
         {
-            "type": "P",
+            "type": "FWP",
             "x": width + 650,
             "y": height - Ground.HEIGHT - 300,
             "w": 200,
             "h": 20,
         },
         {
-            "type": "P",
+            "type": "FWP",
             "x": width + 1100,
             "y": height - Ground.HEIGHT - 350,
             "w": 200,
             "h": 20,
         },
         {
-            "type": "P",
+            "type": "FWP",
             "x": width + 1450,
             "y": height - Ground.HEIGHT - 350,
             "w": 50,
             "h": 20,
         },
         {
-            "type": "P",
+            "type": "FWP",
             "x": width + 1650,
             "y": height - Ground.HEIGHT - 350,
             "w": 50,
@@ -61,5 +61,5 @@ const level3_data = {
         }
     ],
     "flag": [width+2100, height-Ground.HEIGHT - 350],
-    "min_jumps": 9,
+    "min_jumps": 11, //maybe could get down to 10?
 }

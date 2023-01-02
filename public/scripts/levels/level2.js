@@ -25,5 +25,6 @@ const level2_data = {
             "end": width + 10000
         },
     ],
-    flag: [width+1100, height-Ground.HEIGHT],
+    "flag": [width+1100, height-Ground.HEIGHT],
+    "min_jumps": 4,
 };

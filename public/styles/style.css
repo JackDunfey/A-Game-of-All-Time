@@ -7,3 +7,10 @@ body, html{
     justify-content: center;
     align-items: center;
 }
+#container{
+    display: flex;
+    flex-direction: column;
+}
+#login{
+    text-align: center;
+}
