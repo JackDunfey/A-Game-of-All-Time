@@ -35,7 +35,7 @@ class Player{
         }
     }
     checkVictory(flag, callback){
-        if(!flag.completed && this.pos.x >= flag.pos.x && this.pos.y + Player.RADIUS <= flag.pos.y){
+        if(!flag.completed && this.pos.x >= flag.pos.x && this.pos.y <= flag.pos.y){
             flag.completed = true;
             callback();
         }
