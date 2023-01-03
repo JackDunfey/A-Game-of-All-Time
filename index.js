@@ -31,11 +31,16 @@ app.post("/login", verifyToken, (req,res)=>{
             return res.status(500).send(err);
         else if(!user)
             return res.status(400).send("User not found");
-        
-        bcrypt.compare(req.body.password, user.password).then(_=>{
-            res.send("Correct password");
-        }, _=>{
-            res.send("Incorrect Password");
+        bcrypt.compare(req.body.password, user.password).then(result=>{
+            if(!result)
+                return res.send("Bad password"); //TODO: turn into login page with message notifying bad password (pug render)
+            jwt.sign({
+                username: req.body.username,
+            }, process.env.KEY, (err, token)=>{
+                // FIXME: handle error and remove code duplication for token signing
+                console.log(token);
+                res.cookie("token", token).redirect("/game");
+            });
         });
     });
 });
