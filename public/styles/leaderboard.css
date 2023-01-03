@@ -1,0 +1,13 @@
+h1{
+    text-align: center;
+}
+table{
+    margin: auto;
+    width: 60%;
+}
+td{
+    text-align: center;
+}
+td:not(:last-of-type){
+    border-right: 1px solid;
+}

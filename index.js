@@ -52,6 +52,8 @@ app.post("/register", verifyToken, (req,res)=>{
         users.insert({
             username: req.body.username,
             password: await bcrypt.hash(req.body.password, 10),
+            jumps: 0,
+            deaths: 0,
         });
         jwt.sign({
             username: req.body.username,
@@ -60,5 +62,15 @@ app.post("/register", verifyToken, (req,res)=>{
             res.cookie("token", token).redirect("/game");
         });
     })
+});
+
+app.get("/leaderboard", (req,res)=>{
+    let leaderboard = users.content.sort((a,b) => {
+        // Sort the list of players each time
+        // FIXME: Sort only once
+        // Sort ascending by deaths then jumps
+        return a.deaths - b.deaths || a.jumps - b.jumps;
+    });
+    res.render("leaderboard", {"players":leaderboard});
 });
 app.listen(80);

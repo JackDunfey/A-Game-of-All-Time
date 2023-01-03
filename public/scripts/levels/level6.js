@@ -61,5 +61,5 @@ const level6_data = {
         }
     ],
     "flag": [width+2100, height-Ground.HEIGHT - 350],
-    "min_jumps": 11, //maybe could get down to 10?
+    "min_jumps": 10, 
 }

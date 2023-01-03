@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Leaderboard
+        link(rel="stylesheet", href="/static/styles/leaderboard.css")
+    body 
+        h1 Leaderboard 
+        table 
+            thead 
+                tr 
+                    th #
+                    th(colspan=2) Name 
+                    th Jumps 
+                    th Deaths 
+            tbody 
+                each player, index in players
+                    tr 
+                        td= index+1 
+                        td(colspan=2)= player.username 
+                        td= player.jumps
+                        td= player.deaths 
+                else 
+                    tr
+                        td(colspan=4) No entries
