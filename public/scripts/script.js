@@ -1,4 +1,4 @@
-let gaming = inTutorial = false, onMenu = true, paused = false;
+let gaming = inTutorial = paused = false, onMenu = true;
 let level, level_data;
 try{
     level = parseInt(location.query.level) || 1;
@@ -23,8 +23,6 @@ function setup(){
         a.textContent = "Login to save your score";
         document.getElementById("container").append(a);
     }
-    setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
-    showMenu();
 }
 
 function start(){
@@ -49,11 +47,14 @@ function start(){
 }
 
 function draw(){
-    if(inTutorial)
+    if(onMenu){
+        noLoop();
+        return showMenu();
+    } if(inTutorial)
         return tutorial();
-    if(!gaming)
-        return;
-    
+    if(paused){
+        return pause();
+    }
     background("#87CEEB");
     setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
     
@@ -79,7 +80,7 @@ function draw(){
         text(`You Won!`, width/2, height/2);
         player.won = true;
         pop();
-        if(frameCount - level_text_start == 80){
+        if(frameCount - level_text_start == 100){
             player.vel.x = 2;
             level_data = {
                 "platforms": [
@@ -104,27 +105,40 @@ function draw(){
     }
 }
 
+function pause(){
+    paused = true;
+    showPauseMenu();
+    noLoop();
+}
+function unpause(){
+    paused = false;
+    loop();
+}
+function togglePause(){
+    paused ? unpause() : pause();
+}
+
 function keyPressed(){
     if(keyCode == ESCAPE){
-        paused = !paused;
-        if(paused){
-            noLoop();
-        } else {
-            loop();
-        }
+        togglePause();
     }
     if(gaming || inTutorial){
         // In game
         if(keyCode == 32){
-            (gaming ? player : tut_player).jump();
+            player.jump();
         }
     }
 }
 
 function mouseClicked(e){
     if(onMenu){
-        if(checkClicked(startButton) + checkClicked(tutorialButton))
+        if(checkClicked(startButton) + checkClicked(tutorialButton)){
             onMenu = false;
+            loop();
+        }
+    } else if (paused){
+        checkClicked(resumeButton);
+        checkClicked(exitButton);
     }
 }
 

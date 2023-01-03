@@ -1,12 +1,10 @@
-let tut_player, tut_sky;
 let tut_data = {}, tut_step = 1;
 let tut_itr;
 let tut_4_wp, tut_6_fwp;
 let tut_completed = false;
 function tutorialSetup(){
     inTutorial = true;
-    tut_player = new Player();
-    tut_sky = new Sky();
+    player = new Player();
     tut_data.platforms = [
         new Ground(0, Infinity),
     ];
@@ -29,7 +27,7 @@ let tut_2_timer = timeout_maker(3), tut_5_timer = timeout_maker(6);
 let tut_generator_3 = (function *(){
     window.setTimeout(function(){
         tut_itr = window.setInterval(function(){
-            if(tut_player.jumpCount == 2)
+            if(player.jumpCount == 2)
                 tut_step = 4;
         }, 100);
     }, 300);
@@ -107,7 +105,7 @@ function tutorial(){
             break;
     }
     pop();
-    tut_player.update(tut_data, ()=>{
+    player.update(tut_data, ()=>{
         tut_completed = true;
         noLoop();
         push();
@@ -119,7 +117,7 @@ function tutorial(){
         text("You did it!", width/2, height/2);
         pop();
     });
-    tut_player.draw();
+    player.draw();
     if(tut_step == 7 && !tut_completed){
         push();
         fill(0);
