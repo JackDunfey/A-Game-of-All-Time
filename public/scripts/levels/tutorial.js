@@ -5,6 +5,7 @@ let tut_completed = false;
 function tutorialSetup(){
     inTutorial = true;
     player = new Player();
+    sky = new Sky();
     tut_data.platforms = [
         new Ground(0, Infinity),
     ];
@@ -54,8 +55,8 @@ let tut_generator_7 = (function *(){
 function tutorial(){
     noStroke();
     setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
-    tut_sky.update();
-    tut_sky.draw();
+    sky.update();
+    sky.draw();
     tut_data.platforms.forEach(p=>p.update());
     tut_data.platforms.forEach(p=>p.draw());
     tut_data.flag.update();
