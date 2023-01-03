@@ -18,7 +18,7 @@ class Player{
             if(this.pos.y - Player.RADIUS > objects[i].pos.y + objects[i].h/2)
                 continue;
             if(this.pos.y + Player.RADIUS >= objects[i].pos.y){
-                this.vel.set(0,0);
+                this.vel.set(this.vel.x,0);
                 this.pos.y = objects[i].pos.y - Player.RADIUS;
                 this.jumpCount = 0;
                 objects[i]?.activate?.()
@@ -58,7 +58,7 @@ class Player{
     }
     jump(){
         if(this.jumpCount < 2){
-            this.vel.set(0,this.jumpCount ? -10 : -12);
+            this.vel.set(this.vel.x, this.jumpCount ? -10 : -12);
             ++this.jumpCount;
             if(!this.won)
                 ++this.jumps;

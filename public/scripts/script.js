@@ -79,7 +79,8 @@ function draw(){
         text(`You Won!`, width/2, height/2);
         player.won = true;
         pop();
-        if(frameCount - level_text_start == 60){
+        if(frameCount - level_text_start == 80){
+            player.vel.x = 2;
             level_data = {
                 "platforms": [
                     new Ground(0, Infinity),
@@ -87,6 +88,7 @@ function draw(){
                 "flag": new Flag(Infinity, 0)
             }
         }
+        // TODO: transition to end screen (credits/leaderboard/score?)
     } else{
         if(frameCount - level_text_start < 150){
             push();
