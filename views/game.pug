@@ -27,7 +27,7 @@ html(lang="en")
         script(src="/static/scripts/levels/level5.js" defer) 
         script(src="/static/scripts/levels/level6.js" defer) 
         script location.query = Object.fromEntries(location.search.slice(1).split("&").map(x=>x.split("=")))
-    body(onbeforeunload="return false;")
+    body
         div#container
         unless user.isAnonymous 
             flag(value="authenticated" hidden)

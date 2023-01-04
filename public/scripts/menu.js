@@ -10,7 +10,7 @@ const startButton = {
 };
 const tutorialButton = {
     x: width/2,
-    y: 350,
+    y: 325,
     w: 300,
     h: 75,
     text: "How to Play",
@@ -18,7 +18,17 @@ const tutorialButton = {
         tutorialSetup();
     },
 };
-let main_menu_buttons = [startButton, tutorialButton];
+const leaderboardButton = {
+    x: width/2,
+    y: 450,
+    w: 300,
+    h: 75,
+    text: "Leaderboard",
+    onClick: function(){
+        location.assign("/leaderboard");
+    },
+};
+let main_menu_buttons = [startButton, tutorialButton, leaderboardButton];
 function showMenu(){
     setGradient(0,0,width,height,"#87ceeb","#a0d8ef",Y_AXIS);
     push();
@@ -28,13 +38,7 @@ function showMenu(){
     stroke(255);
     fill("#90979B");
     // Button 1
-    main_menu_buttons.forEach(button=>{
-        rect(button.x, button.y, button.w, button.h);
-        push();
-        fill(255);
-        text(button.text, button.x, button.y+button.h/4); // adjust y thing later (and textsize)
-        pop();
-    });
+    main_menu_buttons.forEach(renderButton);
     // Button 2
     pop();
 }
@@ -79,13 +83,14 @@ function showPauseMenu(){
     stroke(255);
     fill("#90979B");
     // Button 1
-    pause_menu_buttons.forEach(button=>{
-        rect(button.x, button.y, button.w, button.h);
-        push();
-        fill(255);
-        text(button.text, button.x, button.y+button.h/4); // adjust y thing later (and textsize)
-        pop();
-    });
+    pause_menu_buttons.forEach(renderButton);
+    pop();
+}
+function renderButton(button){
+    rect(button.x, button.y, button.w, button.h);
+    push();
+    fill(255);
+    text(button.text, button.x, button.y+button.h/4); // adjust y thing later (and textsize)
     pop();
 }
 function checkClicked(button){

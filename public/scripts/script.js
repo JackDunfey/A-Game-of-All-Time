@@ -136,7 +136,7 @@ function keyPressed(){
 
 function mouseClicked(e){
     if(onMenu){
-        if(checkClicked(startButton) || checkClicked(tutorialButton)){
+        if(checkClicked(startButton) || checkClicked(tutorialButton) || checkClicked(leaderboardButton)){
             onMenu = false;
             loop();
         }
