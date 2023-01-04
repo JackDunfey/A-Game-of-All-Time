@@ -1,10 +1,13 @@
 let gaming = inTutorial = paused = false, onMenu = true;
 let level, level_data;
-try{
-    level = parseInt(location.query.level) || 1;
-} catch {
-    level = 1;
+function getInitialLevel(){
+    try{
+        return parseInt(location.query.level) || 1;
+    } catch {
+        return 1;
+    }
 }
+level = getInitialLevel();
 let player, sky, level_text_start = 0;
 
 function setup(){
@@ -28,7 +31,7 @@ function setup(){
 function start(){
     player = new Player();
     sky = new Sky();
-    initLevel(level=1);
+    initLevel(level=getInitialLevel());
     // window.gameOver = function(){
     //     noLoop();
     //     push();
@@ -79,6 +82,7 @@ function draw(){
         rectMode(CENTER);
         text(`You Won!`, width/2, height/2);
         player.won = true;
+        sendFinalStats.next();
         pop();
         if(frameCount - level_text_start == 100){
             player.vel.x = 2;
@@ -168,3 +172,19 @@ function updateScoreDisplay(){
     text("Deaths: " + player.deaths, 0, 20, 100, 100);
     pop();
 }
+
+const sendFinalStats = (function *(){
+    fetch("/done", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            jumps: player.jumps,
+            deaths: player.deaths,
+        }),
+    }).catch(reason=>{
+        console.error(reason);
+    });
+    yield 1;
+})();

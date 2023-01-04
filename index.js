@@ -78,4 +78,29 @@ app.get("/leaderboard", (req,res)=>{
     });
     res.render("leaderboard", {"players":leaderboard});
 });
+
+app.post("/done", verifyToken, (req, res)=>{
+    console.log(`jumps: ${req.body.jumps}, deaths: ${req.body.deaths}`);
+    users.find({username: req.JWTBody?.username}, (err, [user])=>{
+        if(err)
+            return res.status(500).send(err);
+        if(!user)
+            return res.status(400).send(null);
+        if(req.body.deaths > user.deaths)
+            return res.json({success: true});
+        if(req.body.deaths == user.deaths && req.body.jumps > user.jumps)
+            return res.json({success: true});
+        users.update({username: req.JWTBody?.username}, {
+            $set: {
+                jumps: parseInt(req.body.jumps),
+                deaths: parseInt(req.body.deaths)
+            }
+        }, (err, success)=>{
+            if(err || !success)
+                return res.status(500).send(err || success);
+            res.json({success: true});  
+        });
+    });
+});
+
 app.listen(80);

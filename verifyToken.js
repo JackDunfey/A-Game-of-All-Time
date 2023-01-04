@@ -7,7 +7,7 @@ function verifyToken(req,res,next){
 		next();
 	} else {
 		if(typeof req.cookies.token !== 'undefined'){
-			jwt.verify(req.cookies.token,process.env.KEY, function(err, decoded) {
+			jwt.verify(req.cookies.token, process.env.KEY, function(err, decoded) {
 				req.anonymous = false;
 				if(err){
 					res.status(403).send("Invalid token");

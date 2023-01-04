@@ -47,6 +47,7 @@ module.exports = class Datastore{
         }
       }
       await this.refresh();
+      callback(null, true);
     });
   }
   async remove(query,callback=null){
