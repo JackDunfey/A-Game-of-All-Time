@@ -48,9 +48,20 @@ const resumeButton = {
         unpause();
     },
 };
+const restartButton = {
+    x: width/2,
+    y: 325,
+    w: 300,
+    h: 75,
+    text: "Restart",
+    onClick: function(){
+        unpause();
+        start();
+    }
+};
 const exitButton = {
     x: width/2,
-    y: 350,
+    y: 450,
     w: 300,
     h: 75,
     text: "EXIT",
@@ -59,7 +70,7 @@ const exitButton = {
         unpause();
     },
 };
-let pause_menu_buttons = [resumeButton, exitButton];
+let pause_menu_buttons = [resumeButton, restartButton, exitButton];
 function showPauseMenu(){
     push();
     textSize(40);

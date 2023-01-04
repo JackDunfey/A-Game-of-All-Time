@@ -28,7 +28,7 @@ function setup(){
 function start(){
     player = new Player();
     sky = new Sky();
-    initLevel(level);
+    initLevel(level=1);
     // window.gameOver = function(){
     //     noLoop();
     //     push();
@@ -132,13 +132,12 @@ function keyPressed(){
 
 function mouseClicked(e){
     if(onMenu){
-        if(checkClicked(startButton) + checkClicked(tutorialButton)){
+        if(checkClicked(startButton) || checkClicked(tutorialButton)){
             onMenu = false;
             loop();
         }
     } else if (paused){
-        checkClicked(resumeButton);
-        checkClicked(exitButton);
+        pause_menu_buttons.forEach(button=>checkClicked(button));
     }
 }
 
