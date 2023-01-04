@@ -57,8 +57,8 @@ app.post("/register", verifyToken, (req,res)=>{
         users.insert({
             username: req.body.username,
             password: await bcrypt.hash(req.body.password, 10),
-            jumps: 0,
-            deaths: 0,
+            jumps: Infinity,
+            deaths: Infinity,
         });
         jwt.sign({
             username: req.body.username,
