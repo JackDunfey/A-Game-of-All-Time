@@ -80,7 +80,6 @@ app.get("/leaderboard", (req,res)=>{
 });
 
 app.post("/done", verifyToken, (req, res)=>{
-    console.log(`jumps: ${req.body.jumps}, deaths: ${req.body.deaths}`);
     users.find({username: req.JWTBody?.username}, (err, [user])=>{
         if(err)
             return res.status(500).send(err);
